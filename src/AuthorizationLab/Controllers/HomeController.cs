@@ -8,7 +8,6 @@ using Microsoft.AspNetCore.Mvc;
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace AuthorizationLab.Controllers {
-    [Authorize]
     public class HomeController : Controller {
         // GET: /<controller>/
         public async Task<IActionResult> Index() {
