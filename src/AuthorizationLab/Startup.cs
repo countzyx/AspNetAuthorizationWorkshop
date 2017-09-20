@@ -23,6 +23,14 @@ namespace AuthorizationLab
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory) {
+            app.UseCookieAuthentication(new CookieAuthenticationOptions {
+                AuthenticationScheme = "Cookie",
+                LoginPath = new PathString("/Account/Login/"),
+                AccessDeniedPath = new PathString("/Account/Forbidden/"),
+                AutomaticAuthenticate = true,
+                AutomaticChallenge = true
+            });
+
             app.UseMvc(routes => {
                 routes.MapRoute(
                     name: "default",
