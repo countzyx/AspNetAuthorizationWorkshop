@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices.ComTypes;
 using System.Threading.Tasks;
+using AuthorizationLab.Policy;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -23,6 +24,7 @@ namespace AuthorizationLab
             services.AddAuthorization(options => {
                 options.AddPolicy("AdministratorsOnly", policy => policy.RequireRole("Administrator"));
                 options.AddPolicy("EmployeeId", policy => policy.RequireClaim("EmployeeId", "123", "456"));
+                options.AddPolicy("Over21Only", policy => policy.Requirements.Add(new MinimumAgeRequirement(21)));
             });
             services.AddMvc(config => {
                 var policy = new AuthorizationPolicyBuilder()
