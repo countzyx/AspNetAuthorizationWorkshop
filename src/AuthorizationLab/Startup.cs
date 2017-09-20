@@ -22,7 +22,7 @@ namespace AuthorizationLab
         public void ConfigureServices(IServiceCollection services) {
             services.AddAuthorization(options => {
                 options.AddPolicy("AdministratorsOnly", policy => policy.RequireRole("Administrator"));
-                options.AddPolicy("EmployeeId", policy => policy.RequireClaim("EmployeeId"));
+                options.AddPolicy("EmployeeId", policy => policy.RequireClaim("EmployeeId", "123", "456"));
             });
             services.AddMvc(config => {
                 var policy = new AuthorizationPolicyBuilder()
