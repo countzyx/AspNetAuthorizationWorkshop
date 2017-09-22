@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
@@ -21,6 +20,8 @@ namespace AuthorizationLab.Controllers {
             claims.Add(new Claim("EmployeeId", "456", ClaimValueTypes.String, Issuer));
             claims.Add(new Claim(ClaimTypes.DateOfBirth, "1970-06-08", ClaimValueTypes.Date));
             claims.Add(new Claim("BadgeNumber", "123456", ClaimValueTypes.String, Issuer));
+//            claims.Add(new Claim("TemporaryBadgeExpiry", DateTime.Now.AddDays(1).ToString(), ClaimValueTypes.DateTime, Issuer));
+//            claims.Add(new Claim("TemporaryBadgeExpiry", DateTime.Now.AddDays(-1).ToString(), ClaimValueTypes.DateTime, Issuer));
             var userIdentity = new ClaimsIdentity("SuperSecureLogin");
             userIdentity.AddClaims(claims);
             var userPrincipal = new ClaimsPrincipal(userIdentity);
