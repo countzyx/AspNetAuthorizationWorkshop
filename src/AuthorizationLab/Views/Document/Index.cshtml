@@ -1,5 +1,7 @@
-﻿@model System.Collections.Generic.IEnumerable<AuthorizationLab.Core.Models.Document>
-
+﻿@using AuthorizationLab.Policy
+@using Microsoft.AspNetCore.Authorization
+@model System.Collections.Generic.IEnumerable<AuthorizationLab.Core.Models.Document>
+@inject IAuthorizationService AuthorizationService
 <!DOCTYPE html>
 
 <html>
@@ -9,10 +11,15 @@
 <body>
     <div>
         <h1>Document Library</h1>
-        @foreach (var doc in Model) {
-            <p>
-                @Html.ActionLink("Document #" + doc.Id, "Edit", new {id = doc.Id})
-            </p>
+        @{
+            var requirement = new EditRequirement();
+            foreach (var doc in Model) {
+                if (await AuthorizationService.AuthorizeAsync(User, doc, requirement)) {
+                    <p>
+                        @Html.ActionLink("Document #" + doc.Id, "Edit", new {id = doc.Id})
+                    </p>
+                }
+            }
         }
     </div>
 </body>
