@@ -6,15 +6,15 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 
 namespace AuthorizationLab.Policy {
-    public class MinimumAgeRequirement : AuthorizationHandler<MinimumAgeRequirement>, IAuthorizationRequirement {
+    public class MinimumAgeRequirementHandler : AuthorizationHandler<MinimumAgeRequirementHandler>, IAuthorizationRequirement {
         private readonly int _minimumAge;
 
-        public MinimumAgeRequirement(int minimumAge) {
+        public MinimumAgeRequirementHandler(int minimumAge) {
             _minimumAge = minimumAge;
         }
 
 
-        protected override Task HandleRequirementAsync(AuthorizationHandlerContext context, MinimumAgeRequirement requirement) {
+        protected override Task HandleRequirementAsync(AuthorizationHandlerContext context, MinimumAgeRequirementHandler requirementHandler) {
             if (context.User.HasClaim(c => c.Type == ClaimTypes.DateOfBirth)) {
                 var dateOfBirth =
                     Convert.ToDateTime(context.User.FindFirst(c => c.Type == ClaimTypes.DateOfBirth).Value);
@@ -24,7 +24,7 @@ namespace AuthorizationLab.Policy {
                 }
 
                 if (calculatedAge >= _minimumAge) {
-                    context.Succeed(requirement);
+                    context.Succeed(requirementHandler);
                 }
             }
 

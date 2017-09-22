@@ -20,6 +20,7 @@ namespace AuthorizationLab.Controllers {
             claims.Add(new Claim(ClaimTypes.Role, "Administrator", ClaimValueTypes.String, Issuer));
             claims.Add(new Claim("EmployeeId", "456", ClaimValueTypes.String, Issuer));
             claims.Add(new Claim(ClaimTypes.DateOfBirth, "1970-06-08", ClaimValueTypes.Date));
+            claims.Add(new Claim("BadgeNumber", "123456", ClaimValueTypes.String, Issuer));
             var userIdentity = new ClaimsIdentity("SuperSecureLogin");
             userIdentity.AddClaims(claims);
             var userPrincipal = new ClaimsPrincipal(userIdentity);

@@ -11,6 +11,7 @@ namespace AuthorizationLab.Controllers {
     [Authorize(Policy = "Over21Only")]
     public class HomeController : Controller {
         // GET: /<controller>/
+        [Authorize(Policy = "BuildingEntry")]
         public async Task<IActionResult> Index() {
             return View();
         }
